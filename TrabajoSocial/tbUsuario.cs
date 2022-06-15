@@ -15,7 +15,7 @@ namespace TrabajoSocial
     public partial class tbUsuario
     {
         public int Usu_Id { get; set; }
-        public string Usu_UserName { get; set; }
-        public string Usu_Password { get; set; }
+        public string Usu_Username { get; set; }
+        public string Usu_Contraseña { get; set; }
     }
 }

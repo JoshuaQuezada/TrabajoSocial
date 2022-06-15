@@ -5,390 +5,98 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TRABAJO_SOCIALModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="tbBitacora">
-          <Key>
-            <PropertyRef Name="Bit_Id" />
-          </Key>
-          <Property Name="Bit_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Pte_Id" Type="int" />
-          <Property Name="Esp_Id" Type="int" />
-          <Property Name="Bit_UsuarioCrea" Type="nvarchar" MaxLength="50" />
-          <Property Name="Bit_FechaCrea" Type="datetime" />
-          <Property Name="Bit_UsuarioModifica" Type="nvarchar" MaxLength="50" />
-          <Property Name="Bit_FechaModifica" Type="datetime" />
-        </EntityType>
-        <EntityType Name="tbEspecialidades">
-          <Key>
-            <PropertyRef Name="Esp_Id" />
-          </Key>
-          <Property Name="Esp_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Esp_Descripcion" Type="nvarchar" MaxLength="50" />
-          <Property Name="Esp_UsuarioCrea" Type="nvarchar" MaxLength="50" />
-          <Property Name="Esp_Fecha_Crea" Type="datetime" />
-          <Property Name="Esp_UsuarioModifica" Type="nvarchar" MaxLength="50" />
-          <Property Name="Esp_FechaModifica" Type="datetime" />
-        </EntityType>
-        <EntityType Name="tbPacientes">
-          <Key>
-            <PropertyRef Name="Pte_Id" />
-          </Key>
-          <Property Name="Pte_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Pte_Nombres" Type="nvarchar" MaxLength="50" />
-          <Property Name="Pte_Apellidos" Type="nvarchar" MaxLength="50" />
-          <Property Name="Pte_Identidad" Type="nvarchar" MaxLength="50" />
-          <Property Name="Pte_Telefono" Type="nvarchar" MaxLength="50" />
-          <Property Name="Pte_FechaSalida" Type="datetime" />
-          <Property Name="Pte_FirmaUDM" Type="bit" />
-          <Property Name="Pte_FirmaMed" Type="bit" />
-          <Property Name="Pte_UsuarioCrea" Type="nvarchar" MaxLength="50" />
-          <Property Name="Pte_FechaCrea" Type="datetime" />
-          <Property Name="Pte_UsuarioModifica" Type="nvarchar" MaxLength="50" />
-          <Property Name="Pte_FechaModifica" Type="datetime" />
-        </EntityType>
-        <EntityType Name="tbPacienteXEspecialidad">
-          <Key>
-            <PropertyRef Name="Pte_Id" />
-            <PropertyRef Name="Esp_Id" />
-          </Key>
-          <Property Name="Pte_Id" Type="int" Nullable="false" />
-          <Property Name="Esp_Id" Type="int" Nullable="false" />
-          <Property Name="PteXEsp_UsuarioCrea" Type="nvarchar" MaxLength="50" />
-          <Property Name="PteXEsp_FechaCrea" Type="datetime" />
-          <Property Name="PteXEsp_UsuarioModifica" Type="nvarchar" MaxLength="50" />
-          <Property Name="PteXEsp_FechaModifica" Type="datetime" />
-        </EntityType>
         <EntityType Name="tbUsuario">
           <Key>
             <PropertyRef Name="Usu_Id" />
           </Key>
           <Property Name="Usu_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Usu_UserName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Usu_Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Usu_Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Usu_Contraseña" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'TRABAJO_SOCIAL.dbo.VW_Usuario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="VW_Usuario">
+advertencia 6002: La tabla o vista 'TRABAJO_SOCIAL.dbo.VW_tbUsuarios' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="VW_tbUsuarios">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="Id_Usuario" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre_Usuario" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_Bit_Esp_Id">
-          <End Role="tbEspecialidades" Type="Self.tbEspecialidades" Multiplicity="0..1" />
-          <End Role="tbBitacora" Type="Self.tbBitacora" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbEspecialidades">
-              <PropertyRef Name="Esp_Id" />
-            </Principal>
-            <Dependent Role="tbBitacora">
-              <PropertyRef Name="Esp_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bit_Pte_Id">
-          <End Role="tbPacientes" Type="Self.tbPacientes" Multiplicity="0..1" />
-          <End Role="tbBitacora" Type="Self.tbBitacora" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbPacientes">
-              <PropertyRef Name="Pte_Id" />
-            </Principal>
-            <Dependent Role="tbBitacora">
-              <PropertyRef Name="Pte_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Esp_Id">
-          <End Role="tbEspecialidades" Type="Self.tbEspecialidades" Multiplicity="1" />
-          <End Role="tbPacienteXEspecialidad" Type="Self.tbPacienteXEspecialidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbEspecialidades">
-              <PropertyRef Name="Esp_Id" />
-            </Principal>
-            <Dependent Role="tbPacienteXEspecialidad">
-              <PropertyRef Name="Esp_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pte_Id">
-          <End Role="tbPacientes" Type="Self.tbPacientes" Multiplicity="1" />
-          <End Role="tbPacienteXEspecialidad" Type="Self.tbPacienteXEspecialidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbPacientes">
-              <PropertyRef Name="Pte_Id" />
-            </Principal>
-            <Dependent Role="tbPacienteXEspecialidad">
-              <PropertyRef Name="Pte_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Function Name="PA_InsertarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="PA_EditarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_Usuario" Type="int" Mode="In" />
           <Parameter Name="Username" Type="nvarchar" Mode="In" />
-          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contraseña" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="PA_InsertarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="nvarchar" Mode="In" />
+          <Parameter Name="Contraseña" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="TRABAJO_SOCIALModelStoreContainer">
-          <EntitySet Name="tbBitacora" EntityType="Self.tbBitacora" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbEspecialidades" EntityType="Self.tbEspecialidades" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbPacientes" EntityType="Self.tbPacientes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tbPacienteXEspecialidad" EntityType="Self.tbPacienteXEspecialidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VW_Usuario" EntityType="Self.VW_Usuario" store:Type="Views" store:Schema="dbo">
+          <EntitySet Name="VW_tbUsuarios" EntityType="Self.VW_tbUsuarios" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [VW_Usuario].[Id] AS [Id], 
-    [VW_Usuario].[Nombre_Usuario] AS [Nombre_Usuario]
-    FROM [dbo].[VW_Usuario] AS [VW_Usuario]</DefiningQuery>
+    [VW_tbUsuarios].[Id_Usuario] AS [Id_Usuario], 
+    [VW_tbUsuarios].[Nombre_Usuario] AS [Nombre_Usuario]
+    FROM [dbo].[VW_tbUsuarios] AS [VW_tbUsuarios]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_Bit_Esp_Id" Association="Self.FK_Bit_Esp_Id">
-            <End Role="tbEspecialidades" EntitySet="tbEspecialidades" />
-            <End Role="tbBitacora" EntitySet="tbBitacora" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bit_Pte_Id" Association="Self.FK_Bit_Pte_Id">
-            <End Role="tbPacientes" EntitySet="tbPacientes" />
-            <End Role="tbBitacora" EntitySet="tbBitacora" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Esp_Id" Association="Self.FK_Esp_Id">
-            <End Role="tbEspecialidades" EntitySet="tbEspecialidades" />
-            <End Role="tbPacienteXEspecialidad" EntitySet="tbPacienteXEspecialidad" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pte_Id" Association="Self.FK_Pte_Id">
-            <End Role="tbPacientes" EntitySet="tbPacientes" />
-            <End Role="tbPacienteXEspecialidad" EntitySet="tbPacienteXEspecialidad" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TRABAJO_SOCIALModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="tbBitacora">
-          <Key>
-            <PropertyRef Name="Bit_Id" />
-          </Key>
-          <Property Name="Bit_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Pte_Id" Type="Int32" />
-          <Property Name="Esp_Id" Type="Int32" />
-          <Property Name="Bit_UsuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Bit_FechaCrea" Type="DateTime" Precision="3" />
-          <Property Name="Bit_UsuarioModifica" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Bit_FechaModifica" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbEspecialidades" Relationship="Self.FK_Bit_Esp_Id" FromRole="tbBitacora" ToRole="tbEspecialidades" />
-          <NavigationProperty Name="tbPacientes" Relationship="Self.FK_Bit_Pte_Id" FromRole="tbBitacora" ToRole="tbPacientes" />
-        </EntityType>
-        <EntityType Name="tbEspecialidades">
-          <Key>
-            <PropertyRef Name="Esp_Id" />
-          </Key>
-          <Property Name="Esp_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Esp_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Esp_UsuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Esp_Fecha_Crea" Type="DateTime" Precision="3" />
-          <Property Name="Esp_UsuarioModifica" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Esp_FechaModifica" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbBitacora" Relationship="Self.FK_Bit_Esp_Id" FromRole="tbEspecialidades" ToRole="tbBitacora" />
-          <NavigationProperty Name="tbPacienteXEspecialidad" Relationship="Self.FK_Esp_Id" FromRole="tbEspecialidades" ToRole="tbPacienteXEspecialidad" />
-        </EntityType>
-        <EntityType Name="tbPacientes">
-          <Key>
-            <PropertyRef Name="Pte_Id" />
-          </Key>
-          <Property Name="Pte_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Pte_Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pte_Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pte_Identidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pte_Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pte_FechaSalida" Type="DateTime" Precision="3" />
-          <Property Name="Pte_FirmaUDM" Type="Boolean" />
-          <Property Name="Pte_FirmaMed" Type="Boolean" />
-          <Property Name="Pte_UsuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pte_FechaCrea" Type="DateTime" Precision="3" />
-          <Property Name="Pte_UsuarioModifica" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Pte_FechaModifica" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbBitacora" Relationship="Self.FK_Bit_Pte_Id" FromRole="tbPacientes" ToRole="tbBitacora" />
-          <NavigationProperty Name="tbPacienteXEspecialidad" Relationship="Self.FK_Pte_Id" FromRole="tbPacientes" ToRole="tbPacienteXEspecialidad" />
-        </EntityType>
-        <EntityType Name="tbPacienteXEspecialidad">
-          <Key>
-            <PropertyRef Name="Pte_Id" />
-            <PropertyRef Name="Esp_Id" />
-          </Key>
-          <Property Name="Pte_Id" Type="Int32" Nullable="false" />
-          <Property Name="Esp_Id" Type="Int32" Nullable="false" />
-          <Property Name="PteXEsp_UsuarioCrea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PteXEsp_FechaCrea" Type="DateTime" Precision="3" />
-          <Property Name="PteXEsp_UsuarioModifica" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PteXEsp_FechaModifica" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbEspecialidades" Relationship="Self.FK_Esp_Id" FromRole="tbPacienteXEspecialidad" ToRole="tbEspecialidades" />
-          <NavigationProperty Name="tbPacientes" Relationship="Self.FK_Pte_Id" FromRole="tbPacienteXEspecialidad" ToRole="tbPacientes" />
-        </EntityType>
         <EntityType Name="tbUsuario">
           <Key>
             <PropertyRef Name="Usu_Id" />
           </Key>
           <Property Name="Usu_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Usu_UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Usu_Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Usu_Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Usu_Contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_Bit_Esp_Id">
-          <End Role="tbEspecialidades" Type="Self.tbEspecialidades" Multiplicity="0..1" />
-          <End Role="tbBitacora" Type="Self.tbBitacora" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbEspecialidades">
-              <PropertyRef Name="Esp_Id" />
-            </Principal>
-            <Dependent Role="tbBitacora">
-              <PropertyRef Name="Esp_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bit_Pte_Id">
-          <End Role="tbPacientes" Type="Self.tbPacientes" Multiplicity="0..1" />
-          <End Role="tbBitacora" Type="Self.tbBitacora" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbPacientes">
-              <PropertyRef Name="Pte_Id" />
-            </Principal>
-            <Dependent Role="tbBitacora">
-              <PropertyRef Name="Pte_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Esp_Id">
-          <End Role="tbEspecialidades" Type="Self.tbEspecialidades" Multiplicity="1" />
-          <End Role="tbPacienteXEspecialidad" Type="Self.tbPacienteXEspecialidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbEspecialidades">
-              <PropertyRef Name="Esp_Id" />
-            </Principal>
-            <Dependent Role="tbPacienteXEspecialidad">
-              <PropertyRef Name="Esp_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pte_Id">
-          <End Role="tbPacientes" Type="Self.tbPacientes" Multiplicity="1" />
-          <End Role="tbPacienteXEspecialidad" Type="Self.tbPacienteXEspecialidad" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbPacientes">
-              <PropertyRef Name="Pte_Id" />
-            </Principal>
-            <Dependent Role="tbPacienteXEspecialidad">
-              <PropertyRef Name="Pte_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="TRABAJO_SOCIALEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tbBitacora" EntityType="Self.tbBitacora" />
-          <EntitySet Name="tbEspecialidades" EntityType="Self.tbEspecialidades" />
-          <EntitySet Name="tbPacientes" EntityType="Self.tbPacientes" />
-          <EntitySet Name="tbPacienteXEspecialidad" EntityType="Self.tbPacienteXEspecialidad" />
-          <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" />
-          <AssociationSet Name="FK_Bit_Esp_Id" Association="Self.FK_Bit_Esp_Id">
-            <End Role="tbEspecialidades" EntitySet="tbEspecialidades" />
-            <End Role="tbBitacora" EntitySet="tbBitacora" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bit_Pte_Id" Association="Self.FK_Bit_Pte_Id">
-            <End Role="tbPacientes" EntitySet="tbPacientes" />
-            <End Role="tbBitacora" EntitySet="tbBitacora" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Esp_Id" Association="Self.FK_Esp_Id">
-            <End Role="tbEspecialidades" EntitySet="tbEspecialidades" />
-            <End Role="tbPacienteXEspecialidad" EntitySet="tbPacienteXEspecialidad" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Pte_Id" Association="Self.FK_Pte_Id">
-            <End Role="tbPacientes" EntitySet="tbPacientes" />
-            <End Role="tbPacienteXEspecialidad" EntitySet="tbPacienteXEspecialidad" />
-          </AssociationSet>
-          <FunctionImport Name="PA_InsertarUsuario" ReturnType="Collection(String)">
-            <Parameter Name="Username" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-          </FunctionImport>
-          <EntitySet Name="VW_Usuario" EntityType="TRABAJO_SOCIALModel.VW_Usuario" />
-        </EntityContainer>
-        <EntityType Name="VW_Usuario">
+        <EntityType Name="VW_tbUsuarios">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="Id_Usuario" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre_Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityContainer Name="TRABAJO_SOCIALEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbUsuario" EntityType="Self.tbUsuario" />
+          <EntitySet Name="VW_tbUsuarios" EntityType="Self.VW_tbUsuarios" />
+          <FunctionImport Name="PA_InsertarUsuario" ReturnType="Collection(String)">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Contraseña" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PA_EditarUsuario">
+            <Parameter Name="Id_Usuario" Mode="In" Type="Int32" />
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Contraseña" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TRABAJO_SOCIALModelStoreContainer" CdmEntityContainer="TRABAJO_SOCIALEntities">
-          <EntitySetMapping Name="tbBitacora">
-            <EntityTypeMapping TypeName="TRABAJO_SOCIALModel.tbBitacora">
-              <MappingFragment StoreEntitySet="tbBitacora">
-                <ScalarProperty Name="Bit_Id" ColumnName="Bit_Id" />
-                <ScalarProperty Name="Pte_Id" ColumnName="Pte_Id" />
-                <ScalarProperty Name="Esp_Id" ColumnName="Esp_Id" />
-                <ScalarProperty Name="Bit_UsuarioCrea" ColumnName="Bit_UsuarioCrea" />
-                <ScalarProperty Name="Bit_FechaCrea" ColumnName="Bit_FechaCrea" />
-                <ScalarProperty Name="Bit_UsuarioModifica" ColumnName="Bit_UsuarioModifica" />
-                <ScalarProperty Name="Bit_FechaModifica" ColumnName="Bit_FechaModifica" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbEspecialidades">
-            <EntityTypeMapping TypeName="TRABAJO_SOCIALModel.tbEspecialidades">
-              <MappingFragment StoreEntitySet="tbEspecialidades">
-                <ScalarProperty Name="Esp_Id" ColumnName="Esp_Id" />
-                <ScalarProperty Name="Esp_Descripcion" ColumnName="Esp_Descripcion" />
-                <ScalarProperty Name="Esp_UsuarioCrea" ColumnName="Esp_UsuarioCrea" />
-                <ScalarProperty Name="Esp_Fecha_Crea" ColumnName="Esp_Fecha_Crea" />
-                <ScalarProperty Name="Esp_UsuarioModifica" ColumnName="Esp_UsuarioModifica" />
-                <ScalarProperty Name="Esp_FechaModifica" ColumnName="Esp_FechaModifica" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbPacientes">
-            <EntityTypeMapping TypeName="TRABAJO_SOCIALModel.tbPacientes">
-              <MappingFragment StoreEntitySet="tbPacientes">
-                <ScalarProperty Name="Pte_Id" ColumnName="Pte_Id" />
-                <ScalarProperty Name="Pte_Nombres" ColumnName="Pte_Nombres" />
-                <ScalarProperty Name="Pte_Apellidos" ColumnName="Pte_Apellidos" />
-                <ScalarProperty Name="Pte_Identidad" ColumnName="Pte_Identidad" />
-                <ScalarProperty Name="Pte_Telefono" ColumnName="Pte_Telefono" />
-                <ScalarProperty Name="Pte_FechaSalida" ColumnName="Pte_FechaSalida" />
-                <ScalarProperty Name="Pte_FirmaUDM" ColumnName="Pte_FirmaUDM" />
-                <ScalarProperty Name="Pte_FirmaMed" ColumnName="Pte_FirmaMed" />
-                <ScalarProperty Name="Pte_UsuarioCrea" ColumnName="Pte_UsuarioCrea" />
-                <ScalarProperty Name="Pte_FechaCrea" ColumnName="Pte_FechaCrea" />
-                <ScalarProperty Name="Pte_UsuarioModifica" ColumnName="Pte_UsuarioModifica" />
-                <ScalarProperty Name="Pte_FechaModifica" ColumnName="Pte_FechaModifica" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbPacienteXEspecialidad">
-            <EntityTypeMapping TypeName="TRABAJO_SOCIALModel.tbPacienteXEspecialidad">
-              <MappingFragment StoreEntitySet="tbPacienteXEspecialidad">
-                <ScalarProperty Name="Pte_Id" ColumnName="Pte_Id" />
-                <ScalarProperty Name="Esp_Id" ColumnName="Esp_Id" />
-                <ScalarProperty Name="PteXEsp_UsuarioCrea" ColumnName="PteXEsp_UsuarioCrea" />
-                <ScalarProperty Name="PteXEsp_FechaCrea" ColumnName="PteXEsp_FechaCrea" />
-                <ScalarProperty Name="PteXEsp_UsuarioModifica" ColumnName="PteXEsp_UsuarioModifica" />
-                <ScalarProperty Name="PteXEsp_FechaModifica" ColumnName="PteXEsp_FechaModifica" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="TRABAJO_SOCIALModelStoreContainer" CdmEntityContainer="TRABAJO_SOCIALEntities1">
           <EntitySetMapping Name="tbUsuario">
             <EntityTypeMapping TypeName="TRABAJO_SOCIALModel.tbUsuario">
               <MappingFragment StoreEntitySet="tbUsuario">
                 <ScalarProperty Name="Usu_Id" ColumnName="Usu_Id" />
-                <ScalarProperty Name="Usu_UserName" ColumnName="Usu_UserName" />
-                <ScalarProperty Name="Usu_Password" ColumnName="Usu_Password" />
+                <ScalarProperty Name="Usu_Username" ColumnName="Usu_Username" />
+                <ScalarProperty Name="Usu_Contraseña" ColumnName="Usu_Contraseña" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_tbUsuarios">
+            <EntityTypeMapping TypeName="TRABAJO_SOCIALModel.VW_tbUsuarios">
+              <MappingFragment StoreEntitySet="VW_tbUsuarios">
+                <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+                <ScalarProperty Name="Nombre_Usuario" ColumnName="Nombre_Usuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="PA_InsertarUsuario" FunctionName="TRABAJO_SOCIALModel.Store.PA_InsertarUsuario" />
-          <EntitySetMapping Name="VW_Usuario">
-            <EntityTypeMapping TypeName="TRABAJO_SOCIALModel.VW_Usuario">
-              <MappingFragment StoreEntitySet="VW_Usuario">
-                <ScalarProperty Name="Nombre_Usuario" ColumnName="Nombre_Usuario" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PA_EditarUsuario" FunctionName="TRABAJO_SOCIALModel.Store.PA_EditarUsuario" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

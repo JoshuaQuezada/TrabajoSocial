@@ -4,17 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="35b422adba5a4ae0b6eb096cb875924b" Name="Diagram1">
-        <EntityTypeShape EntityType="TRABAJO_SOCIALModel.tbBitacora" Width="1.5" PointX="3.75" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TRABAJO_SOCIALModel.tbEspecialidades" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TRABAJO_SOCIALModel.tbPacientes" Width="1.5" PointX="0.875" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TRABAJO_SOCIALModel.tbPacienteXEspecialidad" Width="1.5" PointX="4" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TRABAJO_SOCIALModel.tbUsuario" Width="1.5" PointX="2.75" PointY="9.25" IsExpanded="true" />
-        <AssociationConnector Association="TRABAJO_SOCIALModel.FK_Bit_Esp_Id" ManuallyRouted="false" />
-        <AssociationConnector Association="TRABAJO_SOCIALModel.FK_Bit_Pte_Id" ManuallyRouted="false" />
-        <AssociationConnector Association="TRABAJO_SOCIALModel.FK_Esp_Id" ManuallyRouted="false" />
-        <AssociationConnector Association="TRABAJO_SOCIALModel.FK_Pte_Id" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TRABAJO_SOCIALModel.VW_Usuario" Width="1.5" PointX="0.75" PointY="0.75" />
+      <Diagram DiagramId="2f77b0ae75ec4a91a03660de1b8c9735" Name="Diagram1">
+        <EntityTypeShape EntityType="TRABAJO_SOCIALModel.tbUsuario" Width="1.5" PointX="0.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRABAJO_SOCIALModel.VW_tbUsuarios" Width="1.5" PointX="8.5" PointY="0.625" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

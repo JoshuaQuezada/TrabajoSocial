@@ -17,6 +17,7 @@ namespace TrabajoSocial
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["Codigo_Usuario"] = null;
             if (!IsPostBack)
             {
                 ListarTabla();
@@ -34,7 +35,7 @@ namespace TrabajoSocial
 
         public void ListarTabla()
         {
-            ds = utilitarios.Obtenerds("SELECT Id, Nombre_Usuario FROM VW_Usuario", "T");
+            ds = utilitarios.Obtenerds("SELECT Id_Usuario, Nombre_Usuario FROM VW_tbUsuarios", "T");
             StringBuilder html = new StringBuilder ();
 
             Literal msj = new Literal ();
@@ -42,9 +43,9 @@ namespace TrabajoSocial
             {
                 html.Append(
                     "<tr>" +
-                    "<td>" + row["Id"] + "</td>" +
+                    "<td>" + row["Id_Usuario"] + "</td>" +
                     "<td>" + row["Nombre_Usuario"] + "</td>" +
-                    "<td><a href='#' class='btn btn-info' onclick='Editar(\"" + row["Id"] + "\");'><i class='fas fa-edit'></i></a></td>" +
+                    "<td><a href='#' class='btn btn-info' Onclick='Editar(\"" + row["Id_Usuario"] + "\");'><i class='fas fa-edit'></i></a></td>" +
                     "</tr>"
                     );
             }
@@ -55,12 +56,12 @@ namespace TrabajoSocial
         public void Editar(string id)
         {
             Session["Codigo_Usuario"] = id;
-            Response.Redirect("Index.aspx");
+            Response.Redirect("UsuarioAdmin.aspx");
         }
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("UsuarioAdmin.aspx");
         }
     }
 }

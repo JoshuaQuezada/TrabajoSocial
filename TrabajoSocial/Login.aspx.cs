@@ -23,7 +23,7 @@ namespace TrabajoSocial
         {
             string sUsername = txtUsername.Value;
             string sPassword = txtPassword.Value;
-            ds = util.Obtenerds("SELECT COUNT(*) AS DATO FROM tbUsuario WHERE Usu_UserName = '" + sUsername + "' AND Usu_Password = '" + sPassword + "'", "T");
+            ds = util.Obtenerds("SELECT COUNT(*) AS DATO FROM tbUsuario WHERE Usu_UserName = '"+ sUsername + "' AND Usu_Contraseña = '"+ sPassword +"'", "T");
             string sConteo = ds.Tables["T"].Rows[0]["Dato"].ToString();
 
             if (sUsername.Contains("'") && sPassword.Contains("'") || sUsername.Contains("or") && sPassword.Contains("or") || sUsername.Contains("OR") && sPassword.Contains("OR"))
@@ -37,11 +37,12 @@ namespace TrabajoSocial
             else
             {
                 Error.Visible = false;
-                ds = util.Obtenerds("SELECT Usu_UserName FROM tbUsuario WHERE Usu_UserName = '" + sUsername + "' AND Usu_Password = '" + sPassword + "'", "Nombres");
-                Session["UserName"] = ds.Tables["Nombres"].Rows[0]["Usu_UserName"].ToString();
+                ds = util.Obtenerds("SELECT Usu_Id FROM tbUsuario WHERE Usu_UserName = '" + sUsername + "' AND Usu_Contraseña = '" + sPassword + "'", "I");
+                Session["IdUsuario"] = ds.Tables["I"].Rows[0]["Usu_Id"].ToString();
+                ds = util.Obtenerds("SELECT Usu_Username FROM tbUsuario WHERE Usu_UserName = '"+ sUsername + "' AND Usu_Contraseña = '"+ sPassword +"'", "Nombres");
+                Session["UserName"] = ds.Tables["Nombres"].Rows[0]["Usu_Username"].ToString();
+                Response.Redirect("Index.aspx");
             }
-
-            Response.Redirect("Index.aspx");
         }
     }
 }

@@ -12,16 +12,9 @@ namespace TrabajoSocial
     using System;
     using System.Collections.Generic;
     
-    public partial class tbPacienteXEspecialidad
+    public partial class VW_tbUsuarios
     {
-        public int Pte_Id { get; set; }
-        public int Esp_Id { get; set; }
-        public string PteXEsp_UsuarioCrea { get; set; }
-        public Nullable<System.DateTime> PteXEsp_FechaCrea { get; set; }
-        public string PteXEsp_UsuarioModifica { get; set; }
-        public Nullable<System.DateTime> PteXEsp_FechaModifica { get; set; }
-    
-        public virtual tbEspecialidades tbEspecialidades { get; set; }
-        public virtual tbPacientes tbPacientes { get; set; }
+        public int Id_Usuario { get; set; }
+        public string Nombre_Usuario { get; set; }
     }
 }

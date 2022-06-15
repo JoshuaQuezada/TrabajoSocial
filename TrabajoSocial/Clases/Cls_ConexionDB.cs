@@ -10,12 +10,12 @@ namespace TrabajoSocial.Clases
 {
     public class Cls_ConexionDB
     {
-        TRABAJO_SOCIALEntities TS = new TRABAJO_SOCIALEntities();
+        TRABAJO_SOCIALEntities1 TS = new TRABAJO_SOCIALEntities1();
         SqlConnection Conexionsql = new SqlConnection();
 
         public SqlConnection ObtenerConexion()
         {
-            string sConexion = ConfigurationManager.ConnectionStrings["TRABAJO_SOCIALEntities"].ToString();
+            string sConexion = ConfigurationManager.ConnectionStrings["TRABAJO_SOCIALEntities1"].ToString();
             string sProvider = new EntityConnectionStringBuilder(sConexion).ProviderConnectionString;
             SqlConnection Conexion = new SqlConnection(sProvider);
             

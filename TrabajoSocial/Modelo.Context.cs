@@ -15,10 +15,10 @@ namespace TrabajoSocial
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class TRABAJO_SOCIALEntities : DbContext
+    public partial class TRABAJO_SOCIALEntities1 : DbContext
     {
-        public TRABAJO_SOCIALEntities()
-            : base("name=TRABAJO_SOCIALEntities")
+        public TRABAJO_SOCIALEntities1()
+            : base("name=TRABAJO_SOCIALEntities1")
         {
         }
     
@@ -27,24 +27,37 @@ namespace TrabajoSocial
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tbBitacora> tbBitacora { get; set; }
-        public virtual DbSet<tbEspecialidades> tbEspecialidades { get; set; }
-        public virtual DbSet<tbPacientes> tbPacientes { get; set; }
-        public virtual DbSet<tbPacienteXEspecialidad> tbPacienteXEspecialidad { get; set; }
         public virtual DbSet<tbUsuario> tbUsuario { get; set; }
-        public virtual DbSet<VW_Usuario> VW_Usuario { get; set; }
+        public virtual DbSet<VW_tbUsuarios> VW_tbUsuarios { get; set; }
     
-        public virtual ObjectResult<string> PA_InsertarUsuario(string username, string password)
+        public virtual ObjectResult<string> PA_InsertarUsuario(string nombre, string contraseña)
         {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var contraseñaParameter = contraseña != null ?
+                new ObjectParameter("Contraseña", contraseña) :
+                new ObjectParameter("Contraseña", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("PA_InsertarUsuario", nombreParameter, contraseñaParameter);
+        }
+    
+        public virtual int PA_EditarUsuario(Nullable<int> id_Usuario, string username, string contraseña)
+        {
+            var id_UsuarioParameter = id_Usuario.HasValue ?
+                new ObjectParameter("Id_Usuario", id_Usuario) :
+                new ObjectParameter("Id_Usuario", typeof(int));
+    
             var usernameParameter = username != null ?
                 new ObjectParameter("Username", username) :
                 new ObjectParameter("Username", typeof(string));
     
-            var passwordParameter = password != null ?
-                new ObjectParameter("Password", password) :
-                new ObjectParameter("Password", typeof(string));
+            var contraseñaParameter = contraseña != null ?
+                new ObjectParameter("Contraseña", contraseña) :
+                new ObjectParameter("Contraseña", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("PA_InsertarUsuario", usernameParameter, passwordParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PA_EditarUsuario", id_UsuarioParameter, usernameParameter, contraseñaParameter);
         }
     }
 }

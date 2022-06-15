@@ -1428,7 +1428,6 @@
     <Content Include="Content\plugins\jqvmap\maps\jquery.vmap.usa.districts.js" />
     <Content Include="Content\plugins\jqvmap\maps\jquery.vmap.usa.js" />
     <Content Include="Content\plugins\jqvmap\maps\jquery.vmap.world.js" />
-    <Content Include="Content\plugins\jsgrid\demos\db.js" />
     <Content Include="Content\plugins\jsgrid\i18n\jsgrid-de.js" />
     <Content Include="Content\plugins\jsgrid\i18n\jsgrid-es.js" />
     <Content Include="Content\plugins\jsgrid\i18n\jsgrid-fr.js" />
@@ -2023,14 +2022,15 @@
     <Content Include="Login.aspx" />
     <Content Include="Modelo.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Modelo.Context.cs</LastGenOutput>
       <DependentUpon>Modelo.edmx</DependentUpon>
+      <LastGenOutput>Modelo.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Modelo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Modelo.edmx</DependentUpon>
       <LastGenOutput>Modelo.cs</LastGenOutput>
     </Content>
+    <Content Include="UsuarioAdmin.aspx" />
     <Content Include="UsuarioIndex.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -2075,20 +2075,15 @@
       <DependentUpon>Modelo.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="tbBitacora.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tbEspecialidades.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tbPacientes.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tbPacienteXEspecialidad.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
     <Compile Include="tbUsuario.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsuarioAdmin.aspx.cs">
+      <DependentUpon>UsuarioAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UsuarioAdmin.aspx.designer.cs">
+      <DependentUpon>UsuarioAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="UsuarioIndex.aspx.cs">
       <DependentUpon>UsuarioIndex.aspx</DependentUpon>
@@ -2097,7 +2092,7 @@
     <Compile Include="UsuarioIndex.aspx.designer.cs">
       <DependentUpon>UsuarioIndex.aspx</DependentUpon>
     </Compile>
-    <Compile Include="VW_Usuario.cs">
+    <Compile Include="VW_tbUsuarios.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -2374,6 +2369,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\plugins\jsgrid\demos\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
